@@ -20,6 +20,14 @@ public class JobData {
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
+    //TODO: Creating a getter method for allJobs ArrayList
+    //non-static method .getAllJobs() can not be referenced from a static context.
+    //So, I made this a public static ArrayList...
+    public static ArrayList<HashMap<String, String>> getAllJobs(){
+        return allJobs;
+    }
+
+
     /**
      * Fetch list of all values from loaded data,
      * without duplicates, for a given column.

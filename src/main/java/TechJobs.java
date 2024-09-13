@@ -10,7 +10,7 @@ public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -112,7 +112,7 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
@@ -120,6 +120,69 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+
+        /*
+         To do this, you’ll need to iterate over an ArrayList of jobs. Each job is itself a HashMap. While you can get
+         each of the items out of the HashMap using the known keys (employer, location, etc.), think instead about
+         creating a nested loop to loop over each HashMap. If a new field is added to the job records, this approach
+         will print out the new field without any updates to printJobs.
+
+        This is how it is printing now...
+        {position type=Data Scientist / Business Intelligence, name=Data Science, employer=Utilidata, location=Rhode Island, core competency=Statistical Analysis}
+
+
+         This is what the jobs should print out as...
+
+                *****
+                position type: Data Scientist / Business Intelligence
+                name: Sr. IT Analyst (Data/BI)
+                employer: Bull Moose Industries
+                location: Saint Louis
+                core competency: Statistical Analysis
+                *****
+
+                *****
+                position type: Web - Back End
+                name: Ruby specialist
+                employer: LaunchCode
+                location: Saint Louis
+                core competency: Javascript
+                *****
+
+            The first for loop is iterating over the ArrayList, but had to nest another for loop to iterate over
+            the hashmaps inside the ArrayList themselves.
+
+            EX: from our studio of counting characters
+            for (Map.Entry<Character, Integer> letter : charactersMap.entrySet()) {
+            System.out.println(letter.getKey() + ": " + letter.getValue());
+
+
+            This is what the No Results should look like:
+
+                Search term:
+                Example Search Term with No Results
+                No Results
+                View jobs by (type 'x' to quit):
+                0 - Search
+                1 - List
+
+            Maybe make an if else statement, if it is true execute the code I currently have
+            Else, write code that will print out NO RESULT message
+         */
+
+        //TODO: Create a loop and iterate over the ArrayList of jobs
+        //I probably need to create a getter for allJobs ArrayList so I can retrieve the jobs from it
+        //When I choose List and All it prints out all the jobs with this code. But, when I pick different List choices
+        //it doesn't print. I am assuming I will need to write some conditionals eventually
+
+        for (HashMap<String, String> job : JobData.getAllJobs()) {
+            System.out.println("*****");
+            for (Map.Entry<String, String> item : job.entrySet()) {
+                System.out.println(item.getKey() + ": " + item.getValue());
+            }
+            System.out.println("*****");
+            System.out.println();
+        }
+
     }
 }
