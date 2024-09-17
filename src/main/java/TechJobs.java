@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -59,16 +56,22 @@ public class TechJobs {
 
                 // What is their search term?
                 System.out.println("\nSearch term:");
+
+
+
                 String searchTerm = in.nextLine();
+
 
                 if (searchField.equals("all")) {
                     printJobs(JobData.findByValue(searchTerm));
+
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
             }
         }
     }
+
 
     // ﻿Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
@@ -118,8 +121,6 @@ public class TechJobs {
     }
 
     // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
 
         /*
          To do this, you’ll need to iterate over an ArrayList of jobs. Each job is itself a HashMap. While you can get
@@ -168,21 +169,77 @@ public class TechJobs {
 
             Maybe make an if else statement, if it is true execute the code I currently have
             Else, write code that will print out NO RESULT message
+
+            Maybe something like if All print what we have
+            else if search term contains 'postition type' or 'location' or whatever other ones there are
+            we can filter through the ArrayList of HashMaps and only print the ones with those values matching the
+            specific search term. If none have a value that matches the search term with the key, then No Results message
+
+
+//This is happening when I press Search and then location
+            Search term:
+cancun
+Does this have anything to do with it?
+*****
+position type: Data Scientist / Business Intelligence
+name: Junior Data Analyst
+employer: Lockerdome
+location: Saint Louis
+core competency: Statistical Analysis
+*****
+
+
+This is happening when I press search and then all
+Search term:
+cancun
+Whats happening here
+*****
+position type: Data Scientist / Business Intelligence
+name: Junior Data Analyst
+employer: Lockerdome
+location: Saint Louis
+core competency: Statistical Analysis
+*****
+
+
+WHAT DOES THAT MEAN? THAT MEANS THAT I NEED TO ADD SOME CONDITIONALS, BUT WHERE??? IN THE PRINTJOBS, CORRECT. IT IS THE
+METHOD 'PRINTJOB' AND RIGHT NOW IT IS SETUP TO ALWAYS DISPLAY ALL THE DATA. I NEED TO WRITE A CONDITION THAT WILL PREVENT
+THE POSITIONS TO ALWAYS DISPLAY. SOMETHING LIKE... IF ARRAY IS EMPTY....
          */
 
-        //TODO: Create a loop and iterate over the ArrayList of jobs
-        //I probably need to create a getter for allJobs ArrayList so I can retrieve the jobs from it
-        //When I choose List and All it prints out all the jobs with this code. But, when I pick different List choices
-        //it doesn't print. I am assuming I will need to write some conditionals eventually
+    //TODO: Create a loop and iterate over the ArrayList of jobs
+    //I probably need to create a getter for allJobs ArrayList so I can retrieve the jobs from it
+    //When I choose List and All it prints out all the jobs with this code. But, when I pick different List choices
+    //it doesn't print. I am assuming I will need to write some conditionals eventually
 
-        for (HashMap<String, String> job : JobData.getAllJobs()) {
-            System.out.println("*****");
-            for (Map.Entry<String, String> item : job.entrySet()) {
-                System.out.println(item.getKey() + ": " + item.getValue());
+
+    private static void printJobs(ArrayList<HashMap<String, String>> jobs) {
+
+        if (jobs.isEmpty()) {
+            System.out.print("No Results");
+        } else if (!jobs.isEmpty()) {
+            for (HashMap<String, String> job : jobs) {
+                System.out.println();
+                System.out.println("*****");
+                for (Map.Entry<String, String> item : job.entrySet()) {
+                    System.out.println(item.getKey() + ": " + item.getValue());
+                }
+                System.out.println("*****");
             }
-            System.out.println("*****");
-            System.out.println();
-        }
 
+        } else {
+
+            for (HashMap<String, String> job : JobData.getAllJobs()) {
+                System.out.println("*****");
+                for (Map.Entry<String, String> item : job.entrySet()) {
+                    System.out.println(item.getKey() + ": " + item.getValue());
+                }
+                System.out.println("*****");
+                System.out.println();
+            }
+        }
     }
 }
+
+
+

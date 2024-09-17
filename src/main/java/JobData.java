@@ -5,10 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -21,7 +18,7 @@ public class JobData {
     private static ArrayList<HashMap<String, String>> allJobs;
 
     //TODO: Creating a getter method for allJobs ArrayList
-    //non-static method .getAllJobs() can not be referenced from a static context.
+    //"non-static method .getAllJobs() can not be referenced from a static context."
     //So, I made this a public static ArrayList...
     public static ArrayList<HashMap<String, String>> getAllJobs(){
         return allJobs;
@@ -95,6 +92,8 @@ public class JobData {
         return jobs;
     }
 
+
+
     /**
      * Search all columns for the given term
      *
@@ -107,8 +106,44 @@ public class JobData {
         loadData();
 
         // TODO - implement this method
-        return null;
+        //We will have an arrayList filled with hashMaps (key/value pairs) We will call it 'searchJobs'
+        //We need to loop over allJobs to look for the search term (value).
+        //So we need to loop over every key and look inside the values of each of the jobs.
+
+        ArrayList<HashMap<String, String>> searchJobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+
+                for (String searchKey : job.keySet()) {
+                    if (job.get(searchKey).contains(value)) {
+                        if (!searchJobs.contains(job)) {
+                            searchJobs.add(job);
+                        }
+                }
+            }
+        }
+        return searchJobs;
     }
+
+
+    /*
+    This is from the studio counting characters: We looped over each letter
+
+            char[] charactersInString = quote.toUpperCase().toCharArray();
+
+        HashMap<Character, Integer> charactersMap = new HashMap<>();
+
+        for (char letter : charactersInString) {
+
+
+            if (charactersMap.containsKey(letter)) {
+                charactersMap.put(letter, charactersMap.get(letter) + 1);
+            } else {
+                charactersMap.put(letter, 1);
+            }
+
+        }
+     */
 
     /**
      * Read in data from a CSV file and store it in a list
